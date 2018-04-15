@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <script src="../jquery-3.3.1.min.js"></script>
+    <title>Exercice 3 Partie 4</title>
+  </head>
+  <body>
+    <h1>Vos Coordonnées Personnel</h1>
+    <form id="form">
+      <!--Création du formulaire-->
+      <label>Nom :</label><input type="text" name="nom" value="" placeholder="Nom" required id="lastName"><br/>
+      <label>Prénom :</label><input type="text" name="prenom" value="" placeholder="Prénom" required id="firstName"><br/>
+      <label>Adresse mail :</label><input type="email" name="e_mail" value="" placeholder="E-mail" required id="eMail"><br/>
+      <label>Numéro de téléphone :</label><input type="text" name="number" value="" placeholder="Numéro de téléphone" required id="telNumber">
+    </form>
+      <button type="button" name="button" id="dataValidation">Vérifier vos données</button>
+      <button type="reset" name="button" id="buttonReset">Réinitialiser</button>
+    <script>
+     $(function(){
+        $('#buttonReset').click(function(){
+          $('#form')[0].reset();
+        });
+        $('#dataValidation').click(function(){
+          var validLastName = /^[A-Z][a-zéèêàçîï]+([-\s][a-zA-Zéèîï][a-zéèêàçîï]+)?/;//On accepte obligatoirement de commencer par une majuscule, suivi de nimporte quel lettre, + un tiret ou espace suivi de nimporte quelle lettre
+          var validFirstName = /^[A-Z][a-zéèêàçîï]+([-\s][a-zA-Zéèîï][a-zéèêàçîï]+)?/;
+          var validEmail = /^[a-z0-9]([a-z0-9._-]*[a-z0-9])*@[a-z0-9]([a-z0-9._-]*[a-z0-9])*[.][a-z]{2,4}$/i;/* * ^commence par
+                                                                                                              * [a-z0-9] : un chiffre ou une lettre
+                                                                                                              * ( puis une sous chaine
+                                                                                                              * [a-z0-9._-]* chiffres, lettres, caractères '.', '_', '-'
+                                                                                                              * [a-z0-9] la sous chaine fini par une lettre ou un chiffre obligatoirement
+                                                                                                              * )* fin de la sous chaine, présente 0 fois ou plus
+                                                                                                              * le caractère '@'
+                                                                                                              * [a-z0-9]([a-z0-9._-]*[a-z0-9])* comme précédemment
+                                                                                                              * [.] un point
+                                                                                                              * [a-z]{2,4} entre 2 et 4 caractères alphabétiques
+                                                                                                              * $/ fin de la chaine
+                                                                                                              * i les caractères alphabétiques ne prennent pas en compte la casse (maj / min) */
+          var validTelNumber = /^0[1-9]\d{8}$/;//On accepte que un numéro commençant par 0, suivi d'un chiffre entre 1 et 9, puis de 8 chiffres quelconque
+          if (validLastName.test($('#lastName').val()) == false){//Si le tests des données misent dans lastName ne sont pas correct
+            $('#lastName').css('border', '1px solid red');//Border lastname rouge
+          } else {
+            $('#lastName').css('border', '1px solid green');//Sinon borde verte
+          }
+          if (validFirstName.test($('#firstName').val()) == false){
+            $('#firstName').css('border', '1px solid red');
+          } else {
+            $('#firstName').css('border', '1px solid green');
+          }
+          if (validEmail.test($('#eMail').val()) == false){
+            $('#eMail').css('border', '1px solid red');
+          } else {
+            $('#eMail').css('border', '1px solid green');
+          }
+          if (validTelNumber.test($('#telNumber').val()) == false){
+            $('#telNumber').css('border', '1px solid red');
+          } else {
+            $('#telNumber').css('border', '1px solid green');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
